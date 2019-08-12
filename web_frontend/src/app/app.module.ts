@@ -6,11 +6,17 @@ import {AppComponent} from './app.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NavComponent} from './nav/nav.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginComponent } from './login/login.component';
+import { AuthcheckComponent } from './authcheck/authcheck.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent
+    NavComponent,
+    DashboardComponent,
+    LoginComponent,
+    AuthcheckComponent
   ],
   imports: [
     BrowserModule,
