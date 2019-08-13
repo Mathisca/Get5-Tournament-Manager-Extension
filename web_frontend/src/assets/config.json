@@ -1,0 +1,8 @@
+{
+  "api": {
+    "apiServer": "http://127.0.0.1:8000/",
+    "loginPage": "/accounts/steam/login/",
+    "logoutPage": "/admin/logout/",
+    "apiRoot": "/api/"
+  }
+}
