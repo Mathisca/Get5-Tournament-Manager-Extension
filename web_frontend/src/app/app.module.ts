@@ -1,14 +1,20 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {NavComponent} from './nav/nav.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './login/login.component';
-import { AuthcheckComponent } from './authcheck/authcheck.component';
+import {NavComponent} from './components/nav/nav.component';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {LoginComponent} from './components/login/login.component';
+import {AuthcheckComponent} from './components/authcheck/authcheck.component';
+import {HttpClientModule} from '@angular/common/http';
+import {AppConfigService} from './services/app-config.service';
+
+export function initializeApp(appConfig: AppConfigService) {
+  return () => appConfig.load();
+}
 
 @NgModule({
   declarations: [
@@ -23,8 +29,16 @@ import { AuthcheckComponent } from './authcheck/authcheck.component';
     BrowserAnimationsModule,
     CollapseModule.forRoot(),
     AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AppConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [AppConfigService],
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

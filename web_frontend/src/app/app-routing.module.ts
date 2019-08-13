@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {LoginComponent} from './login/login.component';
-import {UserLoggedInGuard} from './auth/userloggedin.guard';
-import {UserLoggedOutGuard} from './auth/userloggedout.guard';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {LoginComponent} from './components/login/login.component';
+import {UserLoggedInGuard} from './guards/userloggedin.guard';
+import {UserLoggedOutGuard} from './guards/userloggedout.guard';
 
 
 const routes: Routes = [
