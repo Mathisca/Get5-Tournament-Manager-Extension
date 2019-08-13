@@ -1,12 +1,9 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+
+from gtme.gtmeapi.models import SteamUser
 
 
-from django.contrib.auth.models import User, Group
-from rest_framework import serializers
-
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class SteamSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['username']
+        model = SteamUser
+        fields = '__all__'

@@ -10,21 +10,13 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1']
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.sites',
 
     'rest_framework',
     'rest_framework.authtoken',
 
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.steam',
+    'gtme.gtmeapi',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -37,18 +29,15 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'gtme.urls'
-LOGIN_REDIRECT_URL = 'http://localhost:4200/login'
 
-ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
-ACCOUNT_EMAIL_REQUIRED = False
-
-SITE_ID = 1
+AUTH_USER_MODEL = 'gtmeapi.SteamUser'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.SessionAuthentication'
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    ],    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+    ], 'DEFAULT_PERMISSION_CLASSES': (
+        # 'rest_framework.permissions.IsAuthenticated',
     )
 }
 
@@ -69,11 +58,10 @@ TEMPLATES = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    'allauth.account.auth_backends.AuthenticationBackend',
+    'gtme.gtmeapi.backend.SteamBackend',
 )
 
 WSGI_APPLICATION = 'gtme.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
