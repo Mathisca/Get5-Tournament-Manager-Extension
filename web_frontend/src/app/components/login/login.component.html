@@ -3,7 +3,18 @@
   <div class="card-body">
     <h5 class="card-title">Welcome to the Get5 Tournament Manager</h5>
     <p class="card-text">To continue, please login with Steam.</p>
-    <a href="http://127.0.0.1:8000/accounts/steam/login/"><img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png" /></a>
-    {{config.settings.api.apiRoot}}
+    <form #form action="https://steamcommunity.com/openid/login" method="post">
+
+      <input name="openid.ns" type="hidden" value="http://specs.openid.net/auth/2.0">
+      <input name="openid.mode" type="hidden" value="checkid_setup">
+
+      <input name="openid.identity" type="hidden" value="http://specs.openid.net/auth/2.0/identifier_select">
+      <input name="openid.claimed_id" type="hidden" value="http://specs.openid.net/auth/2.0/identifier_select">
+      <input name="openid.realm" type="hidden" value="{{this.config.settings.steamopenid.realm}}">
+      <input name="openid.return_to" type="hidden"
+             value="{{this.config.settings.apiRoot + this.config.settings.steamopenid.return_path}}">
+      <img (click)="form.submit()"
+           src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png"/>
+    </form>
   </div>
 </div>

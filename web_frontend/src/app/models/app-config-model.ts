@@ -1,8 +1,7 @@
 export interface AppConfigModel {
-  api: {
-    apiServer: string;
-    loginPage: string;
-    logoutPage: string;
-    apiRoot: string;
-  }
+  apiRoot: string;
+  steamopenid: {
+    return_path: string;
+    realm: string;
+  };
 }
