@@ -4,6 +4,7 @@ import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {LoginComponent} from './components/login/login.component';
 import {UserLoggedInGuard} from './guards/userloggedin.guard';
 import {UserLoggedOutGuard} from './guards/userloggedout.guard';
+import {AuthcheckComponent} from './components/authcheck/authcheck.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,10 @@ const routes: Routes = [
   },  {
     path: 'login',
     component: LoginComponent,
+    canActivate: [UserLoggedOutGuard]
+  },  {
+    path: 'auth',
+    component: AuthcheckComponent,
     canActivate: [UserLoggedOutGuard]
   },
   {path: '', redirectTo: '/dashboard', pathMatch: 'prefix'},
