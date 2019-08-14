@@ -27,4 +27,5 @@ def steam_auth(request):
     payload = jwt_payload_handler(user)
     token = jwt_encode_handler(payload)
 
-    return HttpResponse("Your claimed id is " + str(user.steam64) + " is confirmed. JWT token : " + str(token))
+    return HttpResponse("Your claimed id is " + str(
+        user.steam64) + " confirmed. Display name : " + user.personaname + "JWT token : " + str(token))
