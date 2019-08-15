@@ -9,4 +9,5 @@ router.register(r'dumpaccount', views.DumpData, 'dump')
 urlpatterns = [
     path('api/', include(router.urls)),
     path('auth/', views.steam_auth),
+    path('refresh/', views.refresh_token),
 ]

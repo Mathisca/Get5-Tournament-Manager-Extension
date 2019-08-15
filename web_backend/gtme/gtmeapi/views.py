@@ -1,8 +1,10 @@
+import json
+
 from django.contrib.auth import authenticate
 from django.http import HttpResponse
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
-from rest_framework_jwt.settings import api_settings
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from gtme.gtmeapi.models import SteamUser
 from gtme.gtmeapi.serializers import SteamSerializer
@@ -15,17 +17,18 @@ class DumpData(ViewSet):
         return Response(serializer.data)
 
 
+# def refresh_token(request):
+# return HttpResponse("access: "+str(AccessToken.))
+
 def steam_auth(request):
     user = authenticate(request)
 
     if user is None:
         return HttpResponse("can't verify your identity")
 
-    jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
-    jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
+    refresh = RefreshToken.for_user(user)
 
-    payload = jwt_payload_handler(user)
-    token = jwt_encode_handler(payload)
-
-    return HttpResponse("Your claimed id is " + str(
-        user.steam64) + " confirmed. Display name : " + user.personaname + "JWT token : " + str(token))
+    return HttpResponse(json.dumps({
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
+    }))
