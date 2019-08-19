@@ -9,8 +9,9 @@ import {NavComponent} from './components/nav/nav.component';
 import {DashboardComponent} from './components/dashboard/dashboard.component';
 import {LoginComponent} from './components/login/login.component';
 import {AuthcheckComponent} from './components/authcheck/authcheck.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppConfigService} from './services/app-config.service';
+import {TokenInterceptor} from './services/token-interceptor';
 
 export function initializeApp(appConfig: AppConfigService) {
   return () => appConfig.load();
@@ -37,6 +38,11 @@ export function initializeApp(appConfig: AppConfigService) {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
       deps: [AppConfigService],
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
       multi: true
     }],
   bootstrap: [AppComponent]

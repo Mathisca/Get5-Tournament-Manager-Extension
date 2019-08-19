@@ -10,9 +10,9 @@
 
       <input name="openid.identity" type="hidden" value="http://specs.openid.net/auth/2.0/identifier_select">
       <input name="openid.claimed_id" type="hidden" value="http://specs.openid.net/auth/2.0/identifier_select">
-      <input name="openid.realm" type="hidden" value="{{this.config.settings.steamopenid.realm}}">
+      <input name="openid.realm" type="hidden" value="{{this.config.settings.webRoot}}">
       <input name="openid.return_to" type="hidden"
-             value="{{this.config.settings.apiRoot + this.config.settings.steamopenid.return_path}}">
+             value="{{this.config.settings.webRoot}}/auth">
       <img (click)="form.submit()"
            src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png"/>
     </form>
