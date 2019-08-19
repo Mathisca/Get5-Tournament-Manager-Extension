@@ -1,10 +1,11 @@
 from gtme.gtmeapi.models import SteamUser
+from gtme.gtmeapi.services import is_steamauth_valid
 
 
 class SteamBackend:
     def authenticate(self, request, username=None, password=None, **kwargs):
-        # if not is_steamauth_valid(request):
-        #   return None
+        if not is_steamauth_valid(request):
+            return None
 
         claimedid = str(request.GET.get('openid.claimed_id')).replace('https://steamcommunity.com/openid/id/', '')
 

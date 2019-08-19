@@ -8,14 +8,18 @@ SECRET_KEY = 'vlg=h*x88@gu%u#5cz$s4kw$3c10rmw(#e(oge@v&m7+pkw_wh'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.auth',
+    'django.contrib.staticfiles',
     'django.contrib.contenttypes',
 
     'rest_framework',
     'rest_framework.authtoken',
+
+    'corsheaders',
+
 
     'gtme.gtmeapi',
 ]
@@ -27,13 +31,20 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'gtme.urls'
 
 AUTH_USER_MODEL = 'gtmeapi.SteamUser'
 
 REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ], 'DEFAULT_PERMISSION_CLASSES': (
@@ -42,8 +53,8 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
 

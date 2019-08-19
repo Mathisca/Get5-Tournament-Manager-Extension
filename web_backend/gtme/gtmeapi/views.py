@@ -24,7 +24,7 @@ def steam_auth(request):
     user = authenticate(request)
 
     if user is None:
-        return HttpResponse("can't verify your identity")
+        return HttpResponse('Unable to confirm identity', status=401)
 
     refresh = RefreshToken.for_user(user)
 

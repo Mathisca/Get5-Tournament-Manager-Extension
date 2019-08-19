@@ -6,19 +6,25 @@ STEAM_API_URL = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002
 
 
 def is_steamauth_valid(request):
+    required_keys = ['openid.ns',
+                     'openid.op_endpoint',
+                     'openid.claimed_id',
+                     'openid.identity',
+                     'openid.return_to',
+                     'openid.response_nonce',
+                     'openid.assoc_handle',
+                     'openid.signed',
+                     'openid.sig']
+
     post_args = {
-        'openid.assoc_handle': request.GET.get('openid.assoc_handle'),
-        'openid.sig': request.GET.get('openid.sig'),
-        'openid.ns': request.GET.get('openid.ns'),
-        'openid.signed': request.GET.get('openid.signed'),
-        'openid.mode': 'check_authentication'
+        'openid.mode': 'check_authentication',
     }
 
-    openid_signed = request.GET.get('openid.signed').split(',')
-
-    for param in openid_signed:
-        val = 'openid.{}'.format(param)
-        post_args[val] = request.GET.get(val)
+    for key in required_keys:
+        if request.GET.get(key) is None:
+            return False
+        else:
+            post_args[key] = request.GET.get(key)
 
     response = requests.post('https://steamcommunity.com/openid/login', data=post_args)
 
