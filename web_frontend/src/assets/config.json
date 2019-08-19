@@ -1,7 +1,4 @@
 {
   "apiRoot": "http://127.0.0.1:8000/",
-  "steamopenid": {
-    "return_path": "auth/",
-    "realm": "http://127.0.0.1"
-  }
+  "webRoot": "http://127.0.0.1:4200/"
 }
