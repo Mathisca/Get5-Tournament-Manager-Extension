@@ -1,3 +1,5 @@
+import json
+
 import requests
 
 from gtme.config import STEAM_API_KEY
@@ -5,7 +7,7 @@ from gtme.config import STEAM_API_KEY
 STEAM_API_URL = "http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/"
 
 
-def is_steamauth_valid(request):
+def is_steamauth_valid(json_data):
     required_keys = ['openid.ns',
                      'openid.op_endpoint',
                      'openid.claimed_id',
@@ -21,10 +23,10 @@ def is_steamauth_valid(request):
     }
 
     for key in required_keys:
-        if request.GET.get(key) is None:
+        if json_data[key] is None:
             return False
         else:
-            post_args[key] = request.GET.get(key)
+            post_args[key] = json_data[key]
 
     response = requests.post('https://steamcommunity.com/openid/login', data=post_args)
 

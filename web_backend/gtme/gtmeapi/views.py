@@ -2,6 +2,7 @@ import json
 
 from django.contrib.auth import authenticate
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -19,7 +20,7 @@ class DumpData(ViewSet):
 
 # def refresh_token(request):
 # return HttpResponse("access: "+str(AccessToken.))
-
+@csrf_exempt
 def steam_auth(request):
     user = authenticate(request)
 
