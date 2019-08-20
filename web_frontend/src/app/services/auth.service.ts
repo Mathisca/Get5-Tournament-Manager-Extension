@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpUrlEncodingCodec} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 import {AppConfigService} from './app-config.service';
 
@@ -13,11 +13,19 @@ export class AuthService {
 
   public authUser(route: ActivatedRoute) {
     const reqParams = new HttpParams();
+
     route.queryParams.subscribe(queryParams => {
-      this.http.get(this.config.settings.apiRoot + '/token/auth', {
-        params: queryParams, // TODO encode params
-        observe: 'response'
-      })
+
+      const loginParam = {};
+
+      for (const param in queryParams) {
+        loginParam[param] = (queryParams[param]);
+
+      }
+
+      this.http.post(this.config.settings.apiRoot + '/token/auth',
+        loginParam
+      )
         .toPromise()
         .then(response => {
           console.log(response);
